@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.appsian.movieapp.MovieRow
+import com.appsian.movieapp.navigation.MovieScreens
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -50,7 +51,8 @@ fun MainContent(
         LazyColumn {
             items(items = movieList) {
                 MovieRow(movie = it) { movie ->
-                    Log.d("Tag", "MainContent: $movie")
+//                    Log.d("Tag", "MainContent: $movie")
+                    navController.navigate(route = MovieScreens.DetailScreen.name)
                 }
             }
         }
