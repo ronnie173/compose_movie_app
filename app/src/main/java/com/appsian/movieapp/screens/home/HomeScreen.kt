@@ -1,6 +1,6 @@
 package com.appsian.movieapp.screens.home
 
-import android.util.Log
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,15 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.appsian.movieapp.MovieRow
+import com.appsian.movieapp.model.Movie
+import com.appsian.movieapp.model.getMovies
 import com.appsian.movieapp.navigation.MovieScreens
+import com.appsian.movieapp.widgets.MovieRow
 
 @Composable
 fun HomeScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color.Magenta,
+                backgroundColor = Color.LightGray,
                 elevation = 5.dp
             ) {
                 Text(text = "Movies")
@@ -36,23 +38,14 @@ fun HomeScreen(navController: NavController) {
 @Composable
 fun MainContent(
     navController: NavController,
-    movieList: List<String> = listOf(
-        "Avatar",
-        "300",
-        "Harry Potter",
-        "Life",
-        "Avatar",
-        "300",
-        "Harry Potter",
-        "Life"
-    )
+    movieList: List<Movie> = getMovies()
 ) {
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn {
             items(items = movieList) {
                 MovieRow(movie = it) { movie ->
 //                    Log.d("Tag", "MainContent: $movie")
-                    navController.navigate(route = MovieScreens.DetailScreen.name)
+                    navController.navigate(route = MovieScreens.DetailScreen.name+"/$movie")
                 }
             }
         }
